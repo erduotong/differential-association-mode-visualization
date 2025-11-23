@@ -1,20 +1,127 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# 差序格局可视化工具 | Chaxu Geju Visualizer
 
-# Run and deploy your AI Studio app
+> 本项目完全由Vibe Coding制作 不保证理论准确性 仅供学习和交流使用
 
-This contains everything you need to run your app locally.
+## 项目简介
 
-View your app in AI Studio: https://ai.studio/apps/drive/1YvEt-0cV9XsOmDNxk_80PRBY4K86WPqI
+这是一个基于费孝通先生《乡土中国》中"差序格局"理论设计的可视化工具。差序格局描述了中国传统社会中人际关系的结构特征，如同"一块石头丢在水里，水面上一圈圈推出去的波纹"，每个人都是自己社会影响圈的中心。
 
-## Run Locally
+## 功能特点
 
-**Prerequisites:**  Node.js
+- **交互式网络图**: 使用 D3.js 创建动态力导向图，可视化人际关系网络
+- **多维关系类型**: 支持血缘亲情、姻亲连理、私人友谊、地缘业缘、尊卑伦理等五种关系类型
+- **波纹推演**: 可控制推演层级，观察人际关系如何像水波一样向外扩展
+- **动态过滤**: 可选择性显示不同类型的关系网络
+- **实时编辑**: 支持添加、修改和删除人物及关系
+- **数据持久化**: 所有数据自动保存到本地存储，刷新后不丢失
+- **自定义类型**: 支持添加新的关系类型和自定义颜色
+- **响应式设计**: 支持缩放、拖拽等交互操作
 
+## 核心概念
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+费孝通先生在《乡土中国》中描述："我们的格局不是一捆一捆扎清楚的柴，而是好像把一块石头丢在水面上所发生的一圈圈推出去的波纹。每个人都是他社会影响所推出去的圈子的中心。被圈子的波纹所推及的就发生联系。"
+
+- **自我中心**: 以"自我"为网络中心，向外扩展
+- **差序关系**: 不同类型的关系具有不同的重要性和道德义务
+- **波纹效应**: 关系随距离中心越远而影响力减弱
+
+## 安装与使用
+
+### 前置条件
+
+- Node.js (版本 18 或更高)
+
+### 本地运行
+
+1. **克隆项目**:
+   ```bash
+   git clone https://github.com/your-username/chaxu-geju-visualizer.git
+   cd chaxu-geju-visualizer
+   ```
+
+2. **安装依赖**:
+   ```bash
+   npm install
+   # 或使用 pnpm (推荐)
+   pnpm install
+   ```
+
+3. **环境配置** (可选，如果需要 Gemini API):
+   ```bash
+   cp .env.example .env.local
+   # 编辑 .env.local 并添加你的 GEMINI_API_KEY
+   ```
+
+4. **启动开发服务器**:
+   ```bash
+   npm run dev
+   # 或使用 pnpm
+   pnpm dev
+   ```
+
+5. **访问应用**:
+   在浏览器中打开 [http://localhost:5173](http://localhost:5173)
+
+## 项目结构
+
+```
+chaxu-geju-visualizer/
+├── App.tsx                 # 主应用组件
+├── components/
+│   ├── GraphVisualization.tsx  # D3 可视化组件
+│   └── Controls.tsx        # 控制面板组件
+├── types.ts                # TypeScript 类型定义
+├── services/geminiService.ts # Gemini API 服务 (可选)
+├── package.json            # 项目依赖和脚本
+└── README.md
+```
+
+## 技术栈
+
+- **前端框架**: React 19 (TypeScript)
+- **数据可视化**: D3.js 力导向图
+- **状态管理**: React hooks
+- **样式**: Tailwind CSS (通过 Vite 配置)
+- **构建工具**: Vite
+- **包管理**: pnpm (推荐)
+
+## 使用指南
+
+### 视图控制
+- 调整"波纹推演 (层级)"滑块，控制关系网络的扩展层级
+- 勾选/取消勾选不同的"道德系维"来显示/隐藏对应的关系类型
+- 使用全选/全不选按钮快速选择关系类型
+
+### 添加元素
+- **添加人物**: 在"添加"选项卡中输入人物称呼，选择连接的上级人物和关系类型
+- **定义新关系类型**: 在"添加"选项卡中创建自定义关系类型并设置颜色
+
+### 管理元素
+- **管理人物**: 在"管理"选项卡的"人物"子标签中编辑或删除人物
+- **管理关系**: 在"管理"选项卡的"关系"子标签中编辑或删除关系
+- **管理类型**: 在"管理"选项卡的"类型"子标签中编辑或删除关系类型
+
+### 交互功能
+- 拖拽人物节点以重新布局
+- 滚动鼠标滚轮缩放视图
+- 拖拽空白区域平移视图
+
+## 自定义扩展
+
+可以轻松扩展以下功能：
+- 添加新的默认人物和关系
+- 定义新的关系类型和颜色方案
+- 集成外部 API 获取数据
+- 导出/导入功能
+
+## 数据持久化
+
+所有用户创建的人物、关系和配置都会自动保存到浏览器的本地存储中，刷新页面后数据不会丢失。
+
+## 贡献
+
+欢迎提交 Issues 和 Pull Requests 来改进此项目。
+
+## 许可证
+
+本项目采用 MIT 许可证。详情请参阅 [LICENSE](LICENSE) 文件。
